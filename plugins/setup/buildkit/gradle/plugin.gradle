@@ -23,6 +23,21 @@ task buildGoCore(type: Exec) {
     environment 'ANDROID_NDK', androidNdk
     environment 'APP_ENV', project.hasProperty('appEnv') ? project.appEnv : 'pre'
     environment 'PROJECT_DIR', projectRoot
+
+    // 如果 Go 核心已编译好，跳过此 task
+    onlyIf {
+        def libDir = file("${projectRoot}/libclash/android")
+        if (libDir.exists() && libDir.listFiles()?.length > 0) {
+            def hasAllArchs = file("${libDir}/arm64-v8a/libclash.so").exists()
+                    && file("${libDir}/armeabi-v7a/libclash.so").exists()
+                    && file("${libDir}/x86_64/libclash.so").exists()
+            if (hasAllArchs) {
+                logger.lifecycle("Go core already built, skipping buildGoCore")
+                return false
+            }
+        }
+        return true
+    }
 }
 
 def goCoreTask = buildGoCore

@@ -83,6 +83,8 @@ dependencies:
     path: plugins/rust_api
   setup:
     path: plugins/setup
+  webview_flutter: ^4.10.0
+  webview_flutter_android: ^4.13.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -108,6 +110,7 @@ flutter:
     - assets/images/avatar/
     - assets/images/empty/
     - assets/images/icon/
+    - assets/js/
   fonts:
     - family: JetBrainsMono
       fonts:

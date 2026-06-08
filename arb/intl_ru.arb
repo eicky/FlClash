@@ -537,5 +537,19 @@
   "editSsid": "Изменить SSID",
   "authorized": "Разрешено",
   "tapToAuthorize": "Нажмите, чтобы разрешить",
-  "suspended": "Приостановлено..."
+  "suspended": "Приостановлено...",
+  "airportAddress": "Адрес аэропорта",
+  "connectAirport": "Подключиться",
+  "noAccount": "Нет аккаунта? Зарегистрируйтесь",
+  "orManualImport": "Или импортируйте вручную",
+  "loginTimeout": "Тайм-аут входа, попробуйте снова",
+  "bridgeError": "Ошибка Bridge",
+  "neverExpire": "Бессрочно",
+  "expiresAt": "Истекает",
+  "planLabel": "План",
+  "connectAirportDesc": "Введите адрес для открытия страницы входа",
+  "loginSuccess": "Вход выполнен",
+  "importingSubscription": "Импорт подписки...",
+  "webViewLoading": "Загрузка страницы входа...",
+  "retry": "Повторить"
 }

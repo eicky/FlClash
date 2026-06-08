@@ -537,5 +537,19 @@
   "editSsid": "Edit SSID",
   "authorized": "Authorized",
   "tapToAuthorize": "Tap to authorize",
-  "suspended": "Suspended..."
+  "suspended": "Suspended...",
+  "airportAddress": "Airport Address",
+  "connectAirport": "Connect",
+  "noAccount": "No account? Register",
+  "orManualImport": "Or import manually",
+  "loginTimeout": "Login timeout, please retry",
+  "bridgeError": "Bridge error",
+  "neverExpire": "Never expires",
+  "expiresAt": "Expires",
+  "planLabel": "Plan",
+  "connectAirportDesc": "Enter airport address to open login page",
+  "loginSuccess": "Login successful",
+  "importingSubscription": "Importing subscription...",
+  "webViewLoading": "Loading login page...",
+  "retry": "Retry"
 }

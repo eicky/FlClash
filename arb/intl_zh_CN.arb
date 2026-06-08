@@ -537,5 +537,19 @@
   "editSsid": "编辑SSID",
   "authorized": "已授权",
   "tapToAuthorize": "点击授权",
-  "suspended": "挂起中..."
+  "suspended": "挂起中...",
+  "airportAddress": "机场地址",
+  "connectAirport": "连接机场",
+  "noAccount": "没有账号？点击注册",
+  "orManualImport": "或手动导入",
+  "loginTimeout": "登录超时，请重试",
+  "bridgeError": "Bridge错误",
+  "neverExpire": "永不过期",
+  "expiresAt": "到期",
+  "planLabel": "套餐",
+  "connectAirportDesc": "输入机场地址后打开登录页面",
+  "loginSuccess": "登录成功",
+  "importingSubscription": "正在导入订阅...",
+  "webViewLoading": "正在加载登录页面...",
+  "retry": "重试"
 }

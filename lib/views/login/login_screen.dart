@@ -153,11 +153,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 TextField(
                   controller: _urlController,
                   keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
                     labelText: '机场地址',
                     hintText: 'https://example.com',
-                    prefixIcon: const Icon(Icons.language),
+                    prefixIcon: Icon(Icons.language),
                   ),
                   onSubmitted: (_) => _connectAirport(),
                 ),
@@ -186,7 +186,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 // 注册链接
                 TextButton(
                   onPressed: _openRegister,
-                  child: Text('没有账号？点击注册'),
+                  child: const Text('没有账号？点击注册'),
                 ),
                 const SizedBox(height: 32),
 

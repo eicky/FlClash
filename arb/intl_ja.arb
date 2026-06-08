@@ -537,5 +537,19 @@
   "editSsid": "SSIDを編集",
   "authorized": "許可済み",
   "tapToAuthorize": "タップして許可",
-  "suspended": "一時停止中..."
+  "suspended": "一時停止中...",
+  "airportAddress": "空港アドレス",
+  "connectAirport": "接続",
+  "noAccount": "アカウントがない？登録する",
+  "orManualImport": "または手動でインポート",
+  "loginTimeout": "ログインタイムアウト、再試行してください",
+  "bridgeError": "Bridgeエラー",
+  "neverExpire": "無期限",
+  "expiresAt": "有効期限",
+  "planLabel": "プラン",
+  "connectAirportDesc": "空港アドレスを入力してログインページを開く",
+  "loginSuccess": "ログイン成功",
+  "importingSubscription": "サブスクリプションをインポート中...",
+  "webViewLoading": "ログインページを読み込み中...",
+  "retry": "再試行"
 }

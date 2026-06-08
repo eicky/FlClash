@@ -223,12 +223,36 @@ class ProfileItem extends StatelessWidget {
     );
   }
 
+  /// 判断 profile URL 是否来自面板订阅
+  /// 通过前缀匹配：面板 subscribeUrl 通常带 ?flag=xxx，profile.url 可能不带
+  bool _isPanelProfileUrl(String? panelSubscribeUrl) {
+    if (panelSubscribeUrl == null || profile.url.isEmpty) return false;
+    // 去掉 query params 比较 base URL
+    final profileBase = profile.url.split('?').first;
+    final panelBase = panelSubscribeUrl.split('?').first;
+    return profileBase == panelBase;
+  }
+
   List<Widget> _buildUrlProfileInfo(BuildContext context) {
     final subscriptionInfo = profile.subscriptionInfo;
     return [
       const SizedBox(height: 8),
-      if (subscriptionInfo != null)
-        SubscriptionInfoView(subscriptionInfo: subscriptionInfo),
+      // 检查是否为面板订阅，优先展示面板用户信息
+      Consumer(
+        builder: (_, ref, _) {
+          final panelAuth = ref.watch(panelAuthStateProvider);
+          if (panelAuth != null &&
+              panelAuth.userInfo != null &&
+              _isPanelProfileUrl(panelAuth.subscribeUrl)) {
+            return PanelUserInfoView(panelAuth: panelAuth);
+          }
+          // 非面板订阅，展示原有 subscription info
+          if (subscriptionInfo != null) {
+            return SubscriptionInfoView(subscriptionInfo: subscriptionInfo);
+          }
+          return const SizedBox.shrink();
+        },
+      ),
       LastUpdateTimeText(
         lastUpdateDate: profile.lastUpdateDate,
         style: context.textTheme.labelMedium?.toLighter,
