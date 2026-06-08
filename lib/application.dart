@@ -10,6 +10,7 @@ import 'package:fl_clash/manager/manager.dart';
 import 'package:fl_clash/plugins/app.dart';
 import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/state.dart';
+import 'package:fl_clash/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,7 @@ class Application extends ConsumerStatefulWidget {
 class ApplicationState extends ConsumerState<Application> {
   Timer? _autoUpdateProfilesTaskTimer;
   bool _preHasVpn = false;
+  bool _authChecked = false;
 
   final _pageTransitionsTheme = const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
@@ -52,10 +54,27 @@ class ApplicationState extends ConsumerState<Application> {
       } else {
         exit(0);
       }
+      _checkPanelAuth();
       _autoUpdateProfilesTask();
       _initLink();
       app?.initShortcuts();
     });
+  }
+
+  /// 检查 SP 中保存的 panel auth 是否有效
+  Future<void> _checkPanelAuth() async {
+    final auth = ref.read(panelAuthStateProvider);
+    if (auth != null && auth.isLoggedIn) {
+      final isValid =
+          await ref.read(panelAuthStateProvider.notifier).checkLoginStatus();
+      if (!isValid && mounted) {
+        // Token 无效，清除状态，UI 会自动切换到 LoginScreen
+        ref.read(panelAuthStateProvider.notifier).logout();
+      }
+    }
+    if (mounted) {
+      setState(() => _authChecked = true);
+    }
   }
 
   void _initLink() {
@@ -87,6 +106,22 @@ class ApplicationState extends ConsumerState<Application> {
       await ref.read(profilesActionProvider.notifier).autoUpdateProfiles();
       _autoUpdateProfilesTask();
     });
+  }
+
+  /// 根据认证状态决定首页
+  Widget _buildHome() {
+    final auth = ref.watch(panelAuthStateProvider);
+    // 未完成 auth 检查时显示 loading
+    if (!_authChecked) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    // 已登录 → HomePage，未登录 → LoginScreen
+    if (auth != null && auth.isLoggedIn) {
+      return const HomePage();
+    }
+    return const LoginScreen();
   }
 
   Widget _buildPlatformState({required Widget child}) {
@@ -133,7 +168,7 @@ class ApplicationState extends ConsumerState<Application> {
   @override
   Widget build(context) {
     return Consumer(
-      builder: (_, ref, child) {
+      builder: (_, ref, __) {
         final locale = ref.watch(
           appSettingProvider.select((state) => state.locale),
         );
@@ -177,10 +212,9 @@ class ApplicationState extends ConsumerState<Application> {
               primaryColor: themeProps.primaryColor,
             ).toPureBlack(themeProps.pureBlack),
           ),
-          home: child!,
+          home: _buildHome(),
         );
       },
-      child: const HomePage(),
     );
   }
 

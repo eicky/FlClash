@@ -89,6 +89,33 @@ class Preferences {
     final sharedPreferencesIns = await sharedPreferencesCompleter.future;
     await sharedPreferencesIns?.clear();
   }
+
+  // ========== Panel Auth ==========
+
+  static const _panelAuthKey = 'panel_auth';
+
+  Future<PanelAuth?> getPanelAuth() async {
+    try {
+      final preferences = await sharedPreferencesCompleter.future;
+      final jsonString = preferences?.getString(_panelAuthKey);
+      if (jsonString == null) return null;
+      return PanelAuth.fromJson(
+        json.decode(jsonString) as Map<String, Object?>,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> savePanelAuth(PanelAuth auth) async {
+    final preferences = await sharedPreferencesCompleter.future;
+    await preferences?.setString(_panelAuthKey, json.encode(auth));
+  }
+
+  Future<void> clearPanelAuth() async {
+    final preferences = await sharedPreferencesCompleter.future;
+    await preferences?.remove(_panelAuthKey);
+  }
 }
 
 final preferences = Preferences();
