@@ -84,7 +84,7 @@ dependencies:
   setup:
     path: plugins/setup
   webview_flutter: ^4.10.0
-  webview_flutter_android: ^4.13.0
+  webview_flutter_android: ^4.12.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
